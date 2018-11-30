@@ -9,6 +9,7 @@ const ItemCtrl = (function() {
     this.name = name;
     this.calories = calories;
   };
+
   // Data Structure / State
   const data = {
     items: [
@@ -19,11 +20,19 @@ const ItemCtrl = (function() {
     currentItem: null,
     totalCalories: 0
   };
+
+  return {
+    logData: function() {
+      return data;
+    }
+  };
 })();
+
 // UI Controller
 const UICtrl = (function() {
   console.log('ui controller');
 })();
+
 // App Controller
 const App = (function(ItemCtrl, UICtrl) {
   console.log('app controller');
