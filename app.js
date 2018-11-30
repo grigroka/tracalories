@@ -1,7 +1,7 @@
 'use strict';
-// Storage Controller
+// STORAGE CONTROLLER
 
-// Item Controller
+// ITEM CONTROLLER
 const ItemCtrl = (function() {
   // Item Constructor
   const Item = function(id, name, calories) {
@@ -26,13 +26,33 @@ const ItemCtrl = (function() {
     getItems: function() {
       return data.items;
     },
+    addItem: function(name, calories) {
+      let ID;
+      // Create ID
+      if (data.items.length > 0) {
+        ID = data.items[data.items.length - 1].id + 1;
+      } else {
+        ID = 0;
+      }
+
+      // Calories to number
+      calories = parseInt(calories);
+
+      // Create new item
+      const newItem = new Item(ID, name, calories);
+
+      // Push to data structure
+      data.items.push(newItem);
+
+      return newItem;
+    },
     logData: function() {
       return data;
     }
   };
 })();
 
-// UI Controller
+// UI CONTROLLER
 const UICtrl = (function() {
   const UISelectors = {
     itemList: '#item-list',
@@ -71,7 +91,7 @@ const UICtrl = (function() {
   };
 })();
 
-// App Controller
+// APP CONTROLLER
 const App = (function(ItemCtrl, UICtrl) {
   // Load event listeners
   const loadEventListeners = function() {
@@ -89,7 +109,12 @@ const App = (function(ItemCtrl, UICtrl) {
     // Get form input from UI Controller
     const input = UICtrl.getItemInput();
 
-    console.log(input);
+    // Check for name and calorie input
+    if (input.name !== '' && input.calories !== '') {
+      // Add item
+      const newItem = ItemCtrl.addItem(input.name, input.calories);
+      console.log(newItem);
+    }
 
     e.preventDefault();
   };
