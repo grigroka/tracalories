@@ -160,6 +160,11 @@ const App = (function(ItemCtrl, UICtrl) {
     document
       .querySelector(UISelectors.addBtn)
       .addEventListener('click', itemAddSubmit);
+
+    // Edit icon click event
+    document
+      .querySelector(UISelectors.itemList)
+      .addEventListener('click', itemUpdateSubmit);
   };
 
   // Add item submit
@@ -183,6 +188,25 @@ const App = (function(ItemCtrl, UICtrl) {
 
       // Clear input fields
       UICtrl.clearInput();
+    }
+
+    e.preventDefault();
+  };
+
+  // Update item submit
+  const itemUpdateSubmit = function(e) {
+    if (e.target.classList.contains('edit-item')) {
+      // Get list item id (item-0, item-1)
+      const listId = e.target.parentNode.parentNode.id;
+
+      // Break into an array
+      const listIdArr = listId.split('-');
+
+      // Get the actual id
+      const id = parseInt(listIdArr[1]);
+
+      // Get item
+      const itemToEdit = ItemCtrl.getItemById(id);
     }
 
     e.preventDefault();
