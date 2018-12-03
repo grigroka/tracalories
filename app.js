@@ -52,6 +52,9 @@ const StorageCtrl = (function() {
         }
       });
       localStorage.setItem('items', JSON.stringify(items));
+    },
+    clearAllItemsFromStorage: function() {
+      localStorage.removeItem('items');
     }
   };
 })();
@@ -458,7 +461,7 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
     e.preventDefault();
   };
 
-  // Clear items
+  // Clear all items
   const clearAllItemsClick = function() {
     // Delete all items from data structure
     ItemCtrl.clearAllItems();
@@ -471,6 +474,9 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
     // Remove from UI
     UICtrl.removeItems();
+
+    // Clear from local storage
+    StorageCtrl.clearAllItemsFromStorage();
 
     // Hide UL
     UICtrl.hideList();
